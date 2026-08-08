@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAIR SALON - LUMIÈRE</title>
+  <style>
+    /* 基本リセット & スタイル */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Helvetica Neue", Arial, "平角ゴシック ProN", "Hiragino Kaku Gothic ProN", sans-serif;
+      color: #4a4a4a;
+      background-color: #fdfbf7; /* やわらかいウォームホワイト */
+      line-height: 1.8;
+      padding-bottom: 70px;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ポートフォリオ注釈バー */
+    .demo-notice-bar {
+      background-color: #2e7d32;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px 15px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 101;
+    }
+
+    /* ヘッダー */
+    header {
+      position: fixed;
+      top: 37px; /* 注釈バーの高さ分下へシフト */
+      width: 100%;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 15px rgba(220, 180, 160, 0.15);
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #d8707c; /* アクセントのピンク */
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    nav a:hover {
+      color: #d8707c;
+    }
+
+    /* メインビジュアル */
+    .hero {
+      height: 80vh;
+      margin-top: 97px;
+      background: linear-gradient(135deg, rgba(230, 175, 160, 0.5), rgba(160, 195, 180, 0.4)), url('https://placehold.co/1200x800/f3e8e2/5a4a42?text=LUMIERE+HAIR+SALON') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 0 20px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 400;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+
+    /* セクション共通 */
+    section {
+      padding: 70px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+      color: #d8707c;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #73a9ad; /* セージグリーン */
+      margin: 10px auto 0;
+    }
+
+    /* ABOUT */
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(216, 112, 124, 0.08);
+    }
+    .about-img {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .about-text {
+      flex: 1;
+    }
+    .about-text h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #73a9ad;
+    }
+    .about-text p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    /* STYLE (ヘアカタログ) */
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .style-item {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .style-item:hover {
+      transform: translateY(-5px);
+    }
+    /* 画像サイズ統一用クラス */
+    .style-item-img {
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+    }
+    .style-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .style-item p {
+      padding: 12px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #555;
+      background-color: #faf0eb;
+    }
+
+    /* MENU */
+    .menu-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .menu-table {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    .menu-table tr {
+      border-bottom: 1px dashed #e2d3cd;
+    }
+    .menu-table th, .menu-table td {
+      padding: 18px 10px;
+      text-align: left;
+    }
+    .menu-table th {
+      font-weight: 500;
+      width: 70%;
+      color: #4a4a4a;
+    }
+    .menu-table td {
+      text-align: right;
+      color: #d8707c;
+      font-weight: 700;
+    }
+
+    /* STAFF */
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+    .staff-card {
+      text-align: center;
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(115, 169, 173, 0.1);
+    }
+    .staff-card img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 15px;
+      border: 3px solid #f3e8e2;
+    }
+    .staff-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #4a4a4a;
+    }
+    .staff-card .role {
+      font-size: 0.8rem;
+      color: #73a9ad;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .staff-card p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* ACCESS & MAP */
+    .access-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .access-content {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .access-img {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .access-info {
+      flex: 1;
+    }
+    .access-info p {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* 地図埋め込み枠 */
+    .map-wrapper {
+      width: 100%;
+      height: 300px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #f3e8e2;
+      font-size: 0.8rem;
+      color: #777;
+    }
+    .footer-notice {
+      margin-top: 8px;
+      color: #888;
+      font-size: 0.75rem;
+    }
+
+    /* WEB予約ボタン */
+    .fixed-reserve-btn {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #d8707c, #e5989b);
+      color: #fff;
+      text-align: center;
+      padding: 16px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      z-index: 999;
+      box-shadow: 0 -4px 15px rgba(216, 112, 124, 0.3);
+      transition: opacity 0.3s;
+    }
+    .fixed-reserve-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 768px) {
+      .demo-notice-bar { font-size: 0.75rem; padding: 6px 10px; }
+      header { top: 31px; padding: 15px 20px; }
+      .hero { margin-top: 91px; }
+      nav { display: none; }
+      .about-content, .access-content { flex-direction: column; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ポートフォリオ注釈バー -->
+  <div class="demo-notice-bar">
+    ※本ページはNYworksのポートフォリオであり、実在する店舗の紹介ではありません。
+  </div>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="logo">LUMIÈRE</div>
+    <nav>
+      <ul>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#style">STYLE</a></li>
+        <li><a href="#menu">MENU</a></li>
+        <li><a href="#staff">STAFF</a></li>
+        <li><a href="#access">ACCESS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- メインビジュアル -->
+  <div class="hero">
+    <h1>HAIR SALON LUMIÈRE</h1>
+    <p>あなたの魅力を最大限に引き出す、光あふれるプライベートサロン</p>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title">ABOUT</h2>
+    <div class="about-content">
+      <div class="about-img">
+        <img src="images/interior.jpg" alt="施術風景">
+      </div>
+      <div class="about-text">
+        <h3>髪質改善と洗練されたデザインの両立</h3>
+        <p>一人ひとりの骨格やクセ、髪質に合わせたオーダーメイドのカットと、髪のダメージを最小限に抑えたカラーをご提案します。</p>
+        <p>明るい光が入る心地よい空間で、日常の疲れを癒やしながら特別なサロンタイムをお過ごしください。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STYLE -->
+  <section id="style">
+    <h2 class="section-title">HAIR STYLE</h2>
+    <div class="style-grid">
+      <div class="style-item">
+        <div class="style-item-img">
+          <img src="images/style1.jpg" alt="スタイル1">
+        </div>
+        <p>ナチュラルボブ</p>
+      </div>
+
+      <div class="style-item">
+        <div class="style-item-img">
+          <img src="images/style2.jpg" alt="スタイル2">
+        </div>
+        <p>ベージュカラー</p>
+      </div>
+
+      <div class="style-item">
+        <div class="style-item-img">
+          <img src="images/style3.jpg" alt="スタイル3">
+        </div>
+        <p>ハンサムショート</p>
+      </div>
+
+      <div class="style-item">
+        <div class="style-item-img">
+          <img src="images/style4.jpg" alt="スタイル4">
+        </div>
+        <p>ニュアンスウェーブ</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <h2 class="section-title">MENU</h2>
+    <div class="menu-container">
+      <table class="menu-table">
+        <tr>
+          <th>カット（シャンプー・ブロー込）</th>
+          <td>¥6,600</td>
+        </tr>
+        <tr>
+          <th>フルカラー</th>
+          <td>¥7,700〜</td>
+        </tr>
+        <tr>
+          <th>髪質改善プレミアムトリートメント</th>
+          <td>¥8,800</td>
+        </tr>
+        <tr>
+          <th>パーマ（カット込）</th>
+          <td>¥14,300〜</td>
+        </tr>
+        <tr>
+          <th>ヘッドスパ（30分）</th>
+          <td>¥4,400</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- STAFF -->
+  <section id="staff">
+    <h2 class="section-title">STAFF</h2>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <img src="images/staff.jpg" alt="Top Stylist">
+        <h3>SORA</h3>
+        <p class="role">Owner / Top Stylist</p>
+        <p>ショート・ボブの似合わせカットが得意です。お悩み何でもご相談ください。</p>
+      </div>
+      <div class="staff-card">
+        <img src="images/staff2.jpg" alt="Stylist">
+        <h3>MIU</h3>
+        <p class="role">Stylist</p>
+        <p>透明感のあるブリーチカラーや髪質改善メニューをご提案いたします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS & MAP -->
+  <section id="access">
+    <h2 class="section-title">ACCESS & INFO</h2>
+    <div class="access-container">
+      <div class="access-content">
+        <div class="access-img">
+          <img src="images/exterior.jpg" alt="サロン外観">
+        </div>
+        <div class="access-info">
+          <p><strong>店名:</strong> HAIR SALON LUMIÈRE</p>
+          <p><strong>住所:</strong> 〒150-0001 東京都渋谷区神宮前 1-2-3 2F</p>
+          <p><strong>最寄駅:</strong> 表参道駅 A2出口 徒歩3分</p>
+          <p><strong>営業時間:</strong> 10:00 - 20:00（最終受付 19:00）</p>
+          <p><strong>定休日:</strong> 毎週火曜日 / 第2・第4水曜日</p>
+          <p><strong>TEL:</strong> 03-1234-5678</p>
+        </div>
+      </div>
+
+      <!-- Googleマップ埋め込みエリア -->
+      <div class="map-wrapper">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.7479754723146!2d139.7076212!3d35.6672322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188ca234a9d7cd%3A0x1b41e6a3928e46!2z44CSMTUwLTAwMDEgR1RP44K544K_44K444Kq44K556We5a6u5YmNMS0yLTM!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; HAIR SALON LUMIÈRE All Rights Reserved.</p>
+    <p class="footer-notice">※本ページはNYworksのポートフォリオ用サンプルサイトです。実在する店舗・サービスではございません。</p>
+  </footer>
+
+  <!-- 画面下部固定 予約ボタン -->
+  <a href="#" class="fixed-reserve-btn" onclick="alert('デモサイトのため、予約機能は動作しません。'); return false;">
+    WEB予約はこちら
+  </a>
+
+</body>
+</html>
