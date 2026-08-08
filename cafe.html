@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAR & CAFE - NOCTURNE</title>
+  <style>
+    /* 基本リセット & スタイル */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Georgia", "游明朝", "Yu Mincho", serif;
+      color: #eaeaea;
+      background-color: #121212;
+      line-height: 1.8;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ポートフォリオ注釈バー */
+    .demo-notice-bar {
+      background-color: #2e7d32;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px 15px;
+      font-size: 0.85rem;
+      font-family: sans-serif;
+      letter-spacing: 1px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 101;
+    }
+
+    /* ヘッダー */
+    header {
+      position: fixed;
+      top: 37px; /* 注釈バーの高さ分下へシフト */
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    /* メインビジュアル */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://placehold.co/1200x800/1a110b/d4af37?text=NOCTURNE') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      letter-spacing: 6px;
+      margin-bottom: 15px;
+      color: #d4af37; /* ゴールドアクセント */
+    }
+    .hero p {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 36px;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #d4af37;
+      color: #121212;
+    }
+
+    /* セクション共通 */
+    section {
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      margin-bottom: 40px;
+      color: #d4af37;
+    }
+
+    /* コンセプト */
+    .concept {
+      text-align: center;
+    }
+    .concept p {
+      max-width: 650px;
+      margin: 0 auto 20px;
+      color: #bbb;
+    }
+
+    /* メニュー */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .menu-item {
+      border-bottom: 1px solid #333;
+      padding-bottom: 20px;
+    }
+    /* メニュー写真 */
+    .menu-img {
+      width: 100%;
+      height: 180px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border-radius: 4px;
+      background-color: #222;
+    }
+    .menu-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .menu-item h3 {
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .menu-item p {
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    /* アクセス & 予約 */
+    .access {
+      text-align: center;
+    }
+    /* 店舗外観写真 */
+    .info-img {
+      width: 100%;
+      max-width: 700px;
+      height: 350px;
+      margin: 0 auto 30px;
+      overflow: hidden;
+      border-radius: 6px;
+      background-color: #222;
+    }
+    .info-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .access-info {
+      margin-bottom: 30px;
+      color: #bbb;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #222;
+      font-size: 0.8rem;
+      color: #666;
+    }
+    .footer-notice {
+      margin-top: 8px;
+      color: #888;
+      font-size: 0.75rem;
+      font-family: sans-serif;
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 600px) {
+      .demo-notice-bar { font-size: 0.75rem; padding: 6px 10px; }
+      header { top: 31px; padding: 15px 20px; }
+      nav { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .info-img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ポートフォリオ注釈バー -->
+  <div class="demo-notice-bar">
+    ※本ページはNYworksのポートフォリオであり、実在する店舗の紹介ではありません。
+  </div>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="logo">NOCTURNE</div>
+    <nav>
+      <ul>
+        <li><a href="#concept">CONCEPT</a></li>
+        <li><a href="#menu">MENU</a></li>
+        <li><a href="#access">ACCESS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ファーストビュー -->
+  <div class="hero">
+    <h1>CAFE & BAR NOCTURNE</h1>
+    <p>昼の静寂と、夜の贅沢をたしなむ場所。</p>
+    <a href="#reserve" class="btn">RESERVATION</a>
+  </div>
+
+  <!-- コンセプト -->
+  <section id="concept" class="concept">
+    <h2 class="section-title">CONCEPT</h2>
+    <p>日常の喧騒から少し離れて、静かな時間を楽しむための隠れ家。</p>
+    <p>昼はこだわりのハンドドリップコーヒーと自家製スイーツを。夜は季節のフルーツを使ったカクテルや厳選されたウイスキーをお届けします。</p>
+  </section>
+
+  <!-- メニュー -->
+  <section id="menu">
+    <h2 class="section-title">RECOMMEND MENU</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="menu-img">
+          <img src="images/coffee.jpg" alt="自家製焙煎コーヒー">
+        </div>
+        <h3>自家製焙煎コーヒー <span>¥700</span></h3>
+        <p>注文を受けてから豆を挽き、丁寧にドリップします。</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-img">
+          <img src="images/parfait.jpg" alt="季節のフルーツパフェ">
+        </div>
+        <h3>季節のフルーツパフェ <span>¥1,400</span></h3>
+        <p>旬の果物をふんだんに使用した大人のためのデザート。</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-img">
+          <img src="images/cocktail.jpg" alt="野菜と紅茶のカクテル">
+        </div>
+        <h3>野菜と紅茶のカクテル <span>¥1,200</span></h3>
+        <p>フレッシュベジタブルとブラックティーを使ったオリジナルの1杯。</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-img">
+          <img src="images/whisky.jpg" alt="シングルモルトウイスキー">
+        </div>
+        <h3>シングルモルトウイスキー <span>¥1,500〜</span></h3>
+        <p>世界各国から厳選した100種類以上のボトルをご用意。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- アクセス / 予約 -->
+  <section id="access" class="access">
+    <h2 class="section-title">SHOP INFO</h2>
+
+    <!-- 店舗外観写真 -->
+    <div class="info-img">
+      <img src="images/exteriorview.jpg" alt="NOCTURNE 店舗外観">
+    </div>
+
+    <div class="access-info">
+      <p>〒100-0000 東京都千代田区1-2-3</p>
+      <p>営業時間: 14:00 - 24:00 (L.O. 23:30) / 定休日: 水曜日</p>
+      <p>TEL: 03-0000-0000</p>
+    </div>
+    <div id="reserve">
+      <a href="#" class="btn" onclick="alert('デモサイトのため、予約機能は動作しません。'); return false;">WEB予約はこちら</a>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; CAFE & BAR NOCTURNE All Rights Reserved.</p>
+    <p class="footer-notice">※本ページはNYworksのポートフォリオ用サンプルサイトです。実在する店舗・サービスではございません。</p>
+  </footer>
+
+</body>
+</html>
